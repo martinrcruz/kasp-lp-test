@@ -1150,6 +1150,7 @@
   <script src="./js/tabs.js" defer></script>
   <script src="./js/accordion.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+  
   <script defer>
     const swiper = new Swiper(".swiper", {
       direction: "horizontal",
@@ -1190,22 +1191,30 @@
       (function(w, d, s, l, i) {
         w[l] = w[l] || [];
         w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+  
         var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
+            j = d.createElement(s),
+            dl = l != 'dataLayer' ? '&l=' + l : '';
+  
         j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        // CAMBIA AQUÍ la URL para consumir la versión alojada en Vercel
+        // Suponiendo que sirves un script "gtm.js" y permites parámetros id, l, etc.
+        j.src = 'https://server-side-tagging-kgoistpnya-uc.a.run.app/gtm.js?id=' + i + dl;
+  
         f.parentNode.insertBefore(j, f);
       })(window, document, 'script', 'dataLayer', 'GTM-WZ7LJ3');
-
+  
+      // Fuente de Google Fonts
       let fontLink = document.createElement("link");
       fontLink.rel = "stylesheet";
       fontLink.href = "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap";
       document.head.appendChild(fontLink);
+  
       fontLink.onload = () => {
         document.body.style.fontFamily = "'Noto Sans JP', sans-serif";
       };
-
+  
+      // Cookiebot
       setTimeout(() => {
         let script = document.createElement("script");
         script.id = "Cookiebot";
@@ -1215,6 +1224,8 @@
         document.body.appendChild(script);
       }, 3000);
     }
+  
+    // Retraso de carga basado en Largest Contentful Paint
     if ("PerformanceObserver" in window) {
       let lcpObserver = new PerformanceObserver((entryList) => {
         setTimeout(loadExternalScripts, 100);
@@ -1222,8 +1233,10 @@
       });
       lcpObserver.observe({ type: "largest-contentful-paint", buffered: true });
     } else {
+      // Fallback si no está PerformanceObserver
       setTimeout(loadExternalScripts, 5000);
     }
   </script>
+  
 </body>
 </html>
